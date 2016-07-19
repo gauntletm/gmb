@@ -7,4 +7,4 @@ It needs two prepared files, html and xml respectively, to write the blog and th
 
 As the output is basic HTML, it can be styled quite extensively. While initially intended to be a microblog (hence the name), it turned out it may also be made to look just like a normal weblog.
 
-See http://ctrl-cl.club/~gauntlet/gmb and http://ctrl-c.club/~gauntlet/projects/gmb/example.html for two different examples.
+See http://ctrl-c.club/~gauntlet/gmb/ and http://ctrl-c.club/~gauntlet/projects/gmb/example.html for two different examples.
