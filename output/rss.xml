@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+<channel>
+<title>your blog's name goes here</title>
+<link>URL of your weblog</link>
+<description>a short description</description>
+<language>language code like en or es</language>
+<!-- do not remove this line until after first run! <item> -->
+</channel>
+</rss>
