@@ -15,7 +15,7 @@ fi
 # generate output files in case they are not available
 if [ ! -f $drc/index.html ]
 then
-  echo -e '<!DOCTYPE html>\n<html lang='"$blgl"'>\n<head>\n<title>'"$blgt"'</title>\n<link rel="stylesheet" type="text/css" href="../css/style.css">\n<meta charset="UTF-8">\n<meta name="author" content="Gauntlet O. Manatee">\n</head>\n<body><div class="nav">&bull; <a href="..">home</a> &bull; microblog &bull; <a href="../projects">projects</a> &bull; <a href="../contact">contact</a> &bull; <a href="http://ctrl-c.club">host</a> &bull; </div>\n<hr>\n<div class="subnav"><a href="rss.xml">rss</a> <a href="archive.html">archive</a> <a href="../projects/gmb/">about</a></div>\n<hr>\n<div class="cont">\n<!-- class="ew" do not remove this line! !.mfg! -->\n</div\n</body>\n</html>' > $drc/index.html
+  echo -e '<!DOCTYPE html>\n<html lang='"$blgl"'>\n<head>\n<title>'"$blgt"'</title>\n<link rel="stylesheet" type="text/css" href="">\n<meta charset="UTF-8">\n<meta name="author" content="">\n</head>\n<body>\n<!-- class="ew" do not remove this line! !.mfg! -->\n</body>\n</html>' > $drc/index.html
 fi
 
 if [ ! -f $drc/rss.xml ]
@@ -93,7 +93,7 @@ function archive {
   # generate archive overview, if not present
   if [ ! -f $drc/archive.html ]
   then
-    echo -e '<!DOCTYPE html>\n<html lang='"$blgl"'>\n<head>\n<title>'"$blgt"'</title>\n<link rel="stylesheet" type="text/css" href="../css/style.css">\n<meta charset="UTF-8">\n<meta name="author" content="Gauntlet O. Manatee">\n</head>\n<body><div class="nav">&bull; <a href="..">home</a> &bull; <a href=".">microblog</a> &bull; <a href="../projects">projects</a> &bull; <a href="../contact">contact</a> &bull; <a href="http://ctrl-c.club">host</a> &bull; </div>\n<hr>\n<p>Archive of '"$blgt"'</p>\n<div class="cont">\n<!-- class="arc" do not remove this line! -->\n</div\n</body>\n</html>' > $drc/archive.html
+    echo -e '<!DOCTYPE html>\n<html lang='"$blgl"'>\n<head>\n<title>'"$blgt"'</title>\n<link rel="stylesheet" type="text/css" href="../css/style.css">\n<meta charset="UTF-8">\n<meta name="author" content="">\n</head>\n<body><p>Archive of '"$blgt"'</p>\n<!-- class="arc" do not remove this line! -->\n</body>\n</html>' > $drc/archive.html
   fi
   # generate the archive
   mkdir -p $drc/$dpath
@@ -101,7 +101,7 @@ function archive {
   if [ ! -f $drc/$dpath/index.html ]
   then
     arc=`date +%B\ %Y`
-    echo -e '<!DOCTYPE html>\n<html>\n<head>\n<title>'"$blgt"', '"$arc"'</title>\n<link rel="stylesheet" type="text/css" href="../../../css/style.css">\n<meta charset="UTF-8">\n<meta name="author" content="Gauntlet O. Manatee">\n</head>\n<body><div class="nav">&bull; <a href="../../..">home</a> &bull; <a href="../..">microblog</a> &bull; <a href="../../../projects">projects</a> &bull; <a href="../../../contact">contact</a> &bull; <a href="http://ctrl-c.club">host</a> &bull; </div>\n<hr>\n<div class="cont">\n<!-- class="ew" -->\n</body>\n</html>' > $drc/$dpath/index.html
+    echo -e '<!DOCTYPE html>\n<html>\n<head>\n<title>'"$blgt"', '"$arc"'</title>\n<link rel="stylesheet" type="text/css" href="">\n<meta charset="UTF-8">\n<meta name="author" content="">\n</head>\n<body>\n<!-- class="ew" -->\n</body>\n</html>' > $drc/$dpath/index.html
     # arcl is line in archive, arct is text to write in archive overview
     arct='<div class="arc"><a href="'"$drc"'/'"$dpath"'/index.html">'"$arc"'</a></div>'
     arcl=`grep -n -m 1 'class="arc"' $drc/archive.html | cut -d: -f1`
