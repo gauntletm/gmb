@@ -103,7 +103,7 @@ function archive {
     arc=`date +%B\ %Y`
     echo -e '<!DOCTYPE html>\n<html>\n<head>\n<title>'"$blgt"', '"$arc"'</title>\n<link rel="stylesheet" type="text/css" href="">\n<meta charset="UTF-8">\n<meta name="author" content="">\n</head>\n<body>\n<!-- class="ew" -->\n</body>\n</html>' > $drc/$dpath/index.html
     # arcl is line in archive, arct is text to write in archive overview
-    arct='<div class="arc"><a href="'"$drc"'/'"$dpath"'/index.html">'"$arc"'</a></div>'
+    arct='<div class="arc"><a href="'"$dpath"'/index.html">'"$arc"'</a></div>'
     arcl=`grep -n -m 1 'class="arc"' $drc/archive.html | cut -d: -f1`
     sed -i "$arcl i\ $arct" $drc/archive.html
   fi
