@@ -1,6 +1,8 @@
 #!/bin/bash
 # gauntlet's microblog
 # by Gauntlet O. Manatee
+# gmb is free software according to the four freedoms
+# https://www.gnu.org/philosophy/free-sw.html
 
 # read config file; ask to create if not present
 if [ -f ~/.config/gmb/gmbrc ]
