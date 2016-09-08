@@ -15,7 +15,7 @@ fi
 # generate output files in case they are not available
 if [ ! -f $drc/index.html ]
 then
-  echo -e '<!DOCTYPE html>\n<html lang='"$blgl"'>\n<head>\n<title>'"$blgt"'</title>\n<link rel="stylesheet" type="text/css" href="">\n<meta charset="UTF-8">\n<meta name="author" content="">\n</head>\n<body>\n<!-- class="ew" do not remove this line! !.mfg! -->\n</body>\n</html>' > $drc/index.html
+  echo -e '<!DOCTYPE html>\n<html lang='"$blgl"'>\n<head>\n<title>'"$blgt"'</title>\n<link rel="stylesheet" type="text/css" href="../css/style.css">\n<meta charset="UTF-8">\n<meta name="author" content="'"$author"'">\n<link rel="alternate" type="application/rss+xml" title="'"$blgd"'" href="'"$blgu"'rss.xml">\n</head>\n<body>\n<!-- class="ew" do not remove this line! !.mfg! -->\n</body>\n</html>' > $drc/index.html
 fi
 
 if [ ! -f $drc/rss.xml ]
@@ -35,20 +35,20 @@ fi
 # read the date after input, so if the script is invoked and left alone, the
 # timestamp is not wrong.
 date=`date --utc +%Y-%m-%d\ %H:%M`
-id=`date --utc +%d%H%M%S`
+id=`date --utc +%y%m%d%H%M%S`
 
 # wrap the input in html, then find the line of the newest entry, then write before it.
-# todo: id unneeded in actual blog; href to archive needed
-aentry='  <div class="ew"><span id="'"$id"'" class="date"><a href="#'"$id"'">'"$date"'</a> </span><span>'"$typed"'</span></div>'
+aentry='  <div class="ew"><span id="'"$id"'" class="date"><a href="../'"$id"'.html">'"$date"'</a> </span><span>'"$typed"'</span></div>'
 if [ $archive = 1 ]
 then
-  dpath=`date --utc +%y/%m`
-  bentry='<div class="ew"><span class="date"><a href="'"$dpath"'#'"$id"'">'"$date"'</a> </span><span>'"$typed"'</span></div>'
+  bentry='<div class="ew"><span class="date"><a href="'"$id"'.html">'"$date"'</a> </span><span>'"$typed"'</span></div>'
+  dpath=`date --utc +%y\%m`
 else
   bentry='<div class="ew"><span class="date"><a href="#'"$id"'">'"$date"'</a> </span><span>'"$typed"'</span></div>'
 fi
 line=`grep -n -m 1 'class="ew"' $drc/index.html | cut -d: -f1`
 sed -i "$line i\ $bentry" $drc/index.html
+
 
 #
 # rss from here on
@@ -66,12 +66,17 @@ function rss {
   fi
 
   # insert the link to your blog here for RSS to work
-  link=''"$blgu"'#'"$id"
-  rss='<item>\n<title>'"$title"'</title>\n<link>'"$link"'</link>\n<guid>'"$link"'</guid>\n<description><![CDATA['"$typed"']]></description>\n</item>'
+  if [ $archive = 1 ]
+  then
+    link=''"$blgu"'/'"$id"'.html'
+  else
+    link=''"$blgu"'#'"$id"
+  fi
+  rssl='<item>\n<title>'"$title"'</title>\n<link>'"$link"'</link>\n<guid>'"$link"'</guid>\n<description><![CDATA['"$typed"']]></description>\n</item>'
 
   # write the new item to the rss file
   rline=`grep -n -m 1 '<item>' $drc/rss.xml | cut -d: -f1`
-  sed -i "$rline i\ $rss" $drc/rss.xml
+  sed -i "$rline i\ $rssl" $drc/rss.xml
 
 
   # remove the oldest entries in the rss feed
@@ -93,7 +98,7 @@ function archive {
   # generate archive overview, if not present
   if [ ! -f $drc/archive.html ]
   then
-    echo -e '<!DOCTYPE html>\n<html lang='"$blgl"'>\n<head>\n<title>'"$blgt"'</title>\n<link rel="stylesheet" type="text/css" href="../css/style.css">\n<meta charset="UTF-8">\n<meta name="author" content="">\n</head>\n<body><p>Archive of '"$blgt"'</p>\n<!-- class="arc" do not remove this line! -->\n</body>\n</html>' > $drc/archive.html
+    echo -e '<!DOCTYPE html>\n<html lang='"$blgl"'>\n<head>\n<title>'"$blgt"'</title>\n<link rel="stylesheet" type="text/css" href="../css/style.css">\n<meta charset="UTF-8">\n<meta name="author" content="'"$author"'">\n</head>\n<body>\n<p>Archive of <a href=".">'"$blgt"'</a></p>\n<!-- class="arc" do not remove this line! -->\n</body>\n</html>' > $drc/archive.html
   fi
   # generate the archive
   mkdir -p $drc/$dpath
@@ -101,7 +106,7 @@ function archive {
   if [ ! -f $drc/$dpath/index.html ]
   then
     arc=`date +%B\ %Y`
-    echo -e '<!DOCTYPE html>\n<html>\n<head>\n<title>'"$blgt"', '"$arc"'</title>\n<link rel="stylesheet" type="text/css" href="">\n<meta charset="UTF-8">\n<meta name="author" content="">\n</head>\n<body>\n<!-- class="ew" -->\n</body>\n</html>' > $drc/$dpath/index.html
+    echo -e '<!DOCTYPE html>\n<html>\n<head>\n<title>'"$blgt"', '"$arc"'</title>\n<link rel="stylesheet" type="text/css" href="../../css/style.css">\n<meta charset="UTF-8">\n<meta name="author" content="'"$author"'">\n</head>\n<body>\n<!-- class="ew" -->\n</body>\n</html>' > $drc/$dpath/index.html
     # arcl is line in archive, arct is text to write in archive overview
     arct='<div class="arc"><a href="'"$dpath"'/index.html">'"$arc"'</a></div>'
     arcl=`grep -n -m 1 'class="arc"' $drc/archive.html | cut -d: -f1`
@@ -120,6 +125,10 @@ function archive {
     to=$[ $gr-1 ]
     sed -i "$to d" $drc/index.html
   fi
+
+  # write standaloe entry html file
+  echo -e '<!DOCTYPE html>\n<html>\n<head>\n<title>'"$blgt"', '"$date"'</title>\n<link rel="stylesheet" type="text/css" href="../css/style.css">\n<meta charset="UTF-8">\n<meta name="author" content="'"$author"'">\n</head>\n<body>\n<p class="arcnav"><a href=".">Blog</a> <a href="archive.html">Archive</a></p>\n<div class="entry">'"$typed"'</div>\n</body>\n</html>' > $drc/$id.html
+
 }
 
 # actually generate rss feed and archive, if turned on in gmbrc
