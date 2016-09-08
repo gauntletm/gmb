@@ -4,6 +4,9 @@
 blgt=""
 # keep the quotation marks if the blog title is more than one word
 
+# blog author
+author=""
+
 # blog language, like en-US
 blgl=
 
@@ -20,8 +23,7 @@ delr=
 delb=
 
 # blog url
-# like http://www.example.com/blog.html
-# or http://www.example.com/blog/ if theblog is written toindex.html
+# like http://www.example.com/blog/ (the / at the end is important)
 blgu=
 
 # blog description to use in rss, html meta
