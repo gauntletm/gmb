@@ -1,8 +1,6 @@
 #!/bin/bash
 # gauntlet's microblog
 # by Gauntlet O. Manatee
-# gmb is free software according to the four freedoms
-# https://www.gnu.org/philosophy/free-sw.html
 
 # read config file; ask to create if not present
 if [ -f ~/.config/gmb/gmbrc ]
@@ -40,13 +38,12 @@ date=`date --utc +%Y-%m-%d\ %H:%M`
 id=`date --utc +%y%m%d%H%M%S`
 
 # wrap the input in html, then find the line of the newest entry, then write before it.
-aentry='  <div class="ew"><span id="'"$id"'" class="date"><a href="../'"$id"'.html">'"$date"'</a> </span><span>'"$typed"'</span></div>'
 if [ $archive = 1 ]
 then
   bentry='<div class="ew"><span class="date"><a href="'"$id"'.html">'"$date"'</a> </span><span>'"$typed"'</span></div>'
   dpath=`date --utc +%y\%m`
 else
-  bentry='<div class="ew"><span class="date"><a href="#'"$id"'">'"$date"'</a> </span><span>'"$typed"'</span></div>'
+  bentry='<div class="ew"><span class="date" id="'"$id"'"><a href="#'"$id"'">'"$date"'</a> </span><span>'"$typed"'</span></div>'
 fi
 line=`grep -n -m 1 'class="ew"' $drc/index.html | cut -d: -f1`
 sed -i "$line i\ $bentry" $drc/index.html
@@ -116,6 +113,7 @@ function archive {
   fi
 
   # write content to archive
+  aentry='  <div class="ew"><span id="'"$id"'" class="date"><a href="../'"$id"'.html">'"$date"'</a> </span><span>'"$typed"'</span></div>'
   line=`grep -n -m 1 'class="ew"' $drc/$dpath/index.html | cut -d: -f1`
   sed -i "$line i\ $aentry" $drc/$dpath/index.html
 
@@ -143,3 +141,4 @@ if [ $archive = 1 ]
 then
   archive
 fi
+
