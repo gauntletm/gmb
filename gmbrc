@@ -1,34 +1,30 @@
 # to be stored in ~/.config/gmb/
 
 # blog title
-blgt=""
+blogtitle=""
 # keep the quotation marks if the blog title is more than one word
 
 # blog author
 author=""
 
 # blog language, like en-US
-blgl=
+bloglang=
 
 # blog directory on your server, e.g. ~/public_html/blog
-drc=
+blogdir=
 
 # number of entries to keep in rss feed
 # recommending between 15 an 60, depening on how many posts you write per day
-delr=
+delrss=
 
 # number of entries to keep on the blog's index page
 # use this if you want to use the archive
 # recommending about 10 to 15 for a normal blog and 60 plus for a microblog
-delb=
+delblog=
 
 # blog url
 # like http://www.example.com/blog/ (the / at the end is important)
-blgu=
+blogurl=
 
 # blog description to use in rss, html meta
-blgd=""
-
-# turn rss feed and archive on (1) or off (0)
-rss=1
-archive=1
+blogdesc=""
