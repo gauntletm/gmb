@@ -15,7 +15,7 @@ fi
 if [ ! -f $blogdir/index.html ]
 then
   postdate=`date --utc +%Y-%m-%d`
-  echo -e '<!DOCTYPE html>\n<html lang='"$bloglang"'>\n<head>\n<title>'"$blogtitle"'</title>\n<meta charset="UTF-8">\n<meta name="author" content="'"$author"'">\n<link rel="alternate" type="application/rss+xml" title="'"$blogdesc"'" href="'"$blogurl"'rss.xml">\n</head>\n<body>\n<h1>'"$blogtitle"'</h1>\n<h3>'"$postdate"'</h3>\n<ul>\n</ul>\n</body>\n</html>' > $blogdir/index.html
+  echo -e '<!DOCTYPE html>\n<html lang='"$bloglang"'>\n<head>\n<title>'"$blogtitle"'</title>\n<meta charset="UTF-8">\n<meta name="author" content="'"$author"'">\n<link rel="alternate" type="application/rss+xml" title="'"$blogdesc"'" href="'"$blogurl"'rss.xml">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n</head>\n<body>\n<h1>'"$blogtitle"'</h1>\n<h3>'"$postdate"'</h3>\n<ul>\n</ul>\n</body>\n</html>' > $blogdir/index.html
 fi
 
 if [ ! -f $blogdir/rss.xml ]
@@ -73,7 +73,7 @@ monarch=`date --utc +%Y%m`
 mkdir -p $archdir/$monarch
 if [ ! -f $archdir/$monarch/index.html ]
 then
-echo -e '<!DOCTYPE html>\n<html lang='"$bloglang"'>\n<head>\n<title>Archive of '"$blogtitle"'</title>\n<meta charset="UTF-8">\n<meta name="author" content="'"$author"'">\n<link rel="alternate" type="application/rss+xml" title="'"$blogdesc"'" href="'"$blogurl"'rss.xml">\n</head>\n<body>\n<h1>'"$blogtitle"'</h1>\n<p><a href="../..">blog</a> - <a href="..">archive</a></p>\n<h3>'"$postdate"'</h3>\n<ul>\n</ul>\n</body>\n</html>' > $archdir/$monarch/index.html
+echo -e '<!DOCTYPE html>\n<html lang='"$bloglang"'>\n<head>\n<title>Archive of '"$blogtitle"'</title>\n<meta charset="UTF-8">\n<meta name="author" content="'"$author"'">\n<link rel="alternate" type="application/rss+xml" title="'"$blogdesc"'" href="'"$blogurl"'rss.xml">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n</head>\n<body>\n<h1>'"$blogtitle"'</h1>\n<p><a href="../..">blog</a> - <a href="..">archive</a></p>\n<h3>'"$postdate"'</h3>\n<ul>\n</ul>\n</body>\n</html>' > $archdir/$monarch/index.html
 fi
 
 archpath=../
@@ -84,7 +84,7 @@ writeinfile
 link=`date --utc +%B\ %Y`
 if [ ! -f $archdir/index.html ]
 then
-echo -e '<!DOCTYPE html>\n<html lang='"$bloglang"'>\n<head>\n<title>Archive of '"$blogtitle"'</title>\n<meta charset="UTF-8">\n<meta name="author" content="'"$author"'">\n<link rel="alternate" type="application/rss+xml" title="'"$blogdesc"'" href="'"$blogurl"'rss.xml">\n</head>\n<body>\n<h1>'"$blogtitle"'</h1>\n<p><a href="..">blog</a></p>\n<p><a href='"$monarch"'>'"$link"'</a></p>\n</body>\n</html>' > $archdir/index.html
+echo -e '<!DOCTYPE html>\n<html lang='"$bloglang"'>\n<head>\n<title>Archive of '"$blogtitle"'</title>\n<meta charset="UTF-8">\n<meta name="author" content="'"$author"'">\n<link rel="alternate" type="application/rss+xml" title="'"$blogdesc"'" href="'"$blogurl"'rss.xml">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n</head>\n<body>\n<h1>'"$blogtitle"'</h1>\n<p><a href="..">blog</a></p>\n<p><a href='"$monarch"'>'"$link"'</a></p>\n</body>\n</html>' > $archdir/index.html
 fi
 archline=`grep -n -m 1 $(date --utc +%Y%m) $archdir/index.html | cut -d: -f1`
 if [ -z "$archline" ]
@@ -96,7 +96,7 @@ fi
 
 
 # write standalone blog entry
-echo -e '<!DOCTYPE html>\n<html lang='"$bloglang"'>\n<head>\n<title>'"$blogtitle"'</title>\n<meta charset="UTF-8">\n<meta name="author" content="'"$author"'">\n<link rel="alternate" type="application/rss+xml" title="'"$blogdesc"'" href="'"$blogurl"'rss.xml">\n</head>\n<body>\n<h1>'"$blogtitle"'</h1>\n<a href="../..">blog</a> - <a href="..">archive</a>\n<h3>'"$postdate"'</h3>\n<ul>\n<li><p>['"$time"'] '"$typed"'</p></li>\n</ul>\n<p>(<a href=".">entire month</a>)</p>\n</body>\n</html>' > $archdir/$permalink.html
+echo -e '<!DOCTYPE html>\n<html lang='"$bloglang"'>\n<head>\n<title>'"$blogtitle"'</title>\n<meta charset="UTF-8">\n<meta name="author" content="'"$author"'">\n<link rel="alternate" type="application/rss+xml" title="'"$blogdesc"'" href="'"$blogurl"'rss.xml">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n</head>\n<body>\n<h1>'"$blogtitle"'</h1>\n<a href="../..">blog</a> - <a href="..">archive</a>\n<h3>'"$postdate"'</h3>\n<ul>\n<li><p>['"$time"'] '"$typed"'</p></li>\n</ul>\n<p>(<a href=".">entire month</a>)</p>\n</body>\n</html>' > $archdir/$permalink.html
 
 
 # delete oldest entries
