@@ -10,8 +10,8 @@ See http://ctrl-c.club/~gauntlet/gmb/ for an example.
 ## Setup
 
 1. Download gmbrc, gmb.sh and gpe.sh
-2. Move gmbrc to ``~/.config/gmb/gmbrc`` and edit it to set apprppriate values.
-3. Move gmb.sh and gpe.sh to ``~/bin`` and make the executable. If necessary, add ``~/bin`` to your $PATH.
+2. Move gmbrc to ``~/.config/gmb/gmbrc`` and edit it to set appropriate values.
+3. Move gmb.sh and gpe.sh to ``~/bin`` and make them executable. If necessary, add ``~/bin`` to your $PATH.
 4. gmb is now ready for use.
 
 ## Usage
