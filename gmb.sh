@@ -1,16 +1,8 @@
 #!/bin/bash
-# gmb 0.4.1
-# 2017-02-04
-# Gauntlet O. Manatee <spukspital@openmailbox.org>
+# gmb 0.5
+# 2018-07-18
 
-if [ -f ~/.config/gmb/gmbrc ]
-then
-  . ~/.config/gmb/gmbrc
-else
-  echo "Please create a config file at ~/.config/gmb/gmbrc"
-  echo "See http://www.github.com/gauntletm/gmb/wiki for an example."
-  exit
-fi
+. ~/.config/gmb/gmbrc
 
 if [ ! -f $blogdir/index.html ]
 then
@@ -26,10 +18,12 @@ fi
 # check for a parameter to read; if non is present, ask for manual input
 if [ -z "$1" ]
 then
-  echo "Type your new entry, then hit return."
-  read typed
+  tempfile=$(mktemp)
+  $editor $tempfile
+  if [ -z $(cat $tempfile) ] ; then exit ; fi
+  typed=$(cat $tempfile)
 else
-  typed=$(cat $1 | perl -pe "s/\n/ /")
+  typed=$(cat $1)
 fi
 
 # get all the relevant times and dates
@@ -38,12 +32,6 @@ permalink=`date --utc +%Y%m/%d%H%M%S`
 time=`date --utc +%H:%M`
 
 function writeinfile {
-
-# will find the line with the most current date ... or rather check wether there was a post today
-# set line to be an integer so we can calculate later
-typeset -i line
-line=$(grep -n -m 1 $postdate $workdir/index.html | cut -d: -f1)
-
 # will find the line with the most current date ... or rather check wether there was a post today
 # set line to be an integer so we can calculate later
 typeset -i line
@@ -108,41 +96,32 @@ then
 fi
 
 
-function rss {
-  # write rss feed
-    # cut the words for the title if the string is too long
-    # remove html tags, because they cause trouble in the feed
-    length=$(echo $typed | wc -w)
-    if [ "$length" -gt "5" ]
-    then
-      title="$(echo $typed | sed -e 's/<[^>]*>//g' | cut -d' ' -f-5) ..."
-    else
-      title="$(echo $typed | sed -e 's/<[^>]*>//g')"
-    fi
+# write rss feed
+  # cut the words for the title if the string is too long
+  # remove html tags, because they cause trouble in the feed
+  length=$(echo $typed | wc -w)
+  if [ "$length" -gt "5" ]
+  then
+    title="$(echo $typed | sed -e 's/<[^>]*>//g' | cut -d' ' -f-5) ..."
+  else
+    title="$(echo $typed | sed -e 's/<[^>]*>//g')"
+  fi
 
-    link=''"$blogurl"'archive/'"$permalink"'.html'
+  link=''"$blogurl"'archive/'"$permalink"'.html'
 
-    rssl='<item>\n<title>'"$title"'</title>\n<link>'"$link"'</link>\n<guid>'"$link"'</guid>\n<description><![CDATA[<p>'"$typed"'</p>]]></description>\n</item>'
+  rssl='<item>\n<title>'"$title"'</title>\n<link>'"$link"'</link>\n<guid>'"$link"'</guid>\n<description><![CDATA[<p>'"$typed"'</p>]]></description>\n</item>'
 
-    # write the new item to the rss file
-    rline=$(grep -n -m 1 '<item>' $blogdir/rss.xml | cut -d: -f1)
-    sed -i "$rline i\ $rssl" $blogdir/rss.xml
+  # write the new item to the rss file
+  rline=$(grep -n -m 1 '<item>' $blogdir/rss.xml | cut -d: -f1)
+  sed -i "$rline i\ $rssl" $blogdir/rss.xml
 
 
-    # remove the oldest entries in the rss feed
-    totrss=$(grep -n "</item>" $blogdir/rss.xml | wc -l)
-    if [ $totrss -gt $delrss ]
-    then
-      gr=$(wc -l $blogdir/rss.xml | cut -d ' ' -f1)
-      to=$[ $gr-2 ]
-# set from 5 to 6. fix?
-# set to 5 again. oO
-      from=$[ $to-5 ]
-      sed -i "$from , $to d" $blogdir/rss.xml
-    fi
-}
-
-#if [ $rss -eq 1 ]
-#then
-rss
-#fi
+  # remove the oldest entries in the rss feed
+  totrss=$(grep -n "</item>" $blogdir/rss.xml | wc -l)
+  if [ $totrss -gt $delrss ]
+  then
+    gr=$(wc -l $blogdir/rss.xml | cut -d ' ' -f1)
+    to=$[ $gr-2 ]
+    from=$[ $to-5 ]
+    sed -i "$from , $to d" $blogdir/rss.xml
+  fi
