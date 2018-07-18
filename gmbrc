@@ -28,3 +28,6 @@ blogurl=
 
 # blog description to use in rss, html meta
 blogdesc=""
+
+# editor of choice, like nano, vi ...
+editor=
