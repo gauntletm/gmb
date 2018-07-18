@@ -7,11 +7,18 @@ As the output is basic HTML, it can be styled quite extensively. While initially
 
 See http://ctrl-c.club/~gauntlet/gmb/ for an example.
 
+## Setup
+
+1. Download gmbrc, gmb.sh and gpe.sh
+2. Move gmbrc to ``~/.config/gmb/gmbrc`` and edit it to set apprppriate values.
+3. Move gmb.sh and gpe.sh to ``~/bin`` and make the executable. If necessary, add ``~/bin`` to your $PATH.
+4. gmb is now ready for use.
+
 ## Usage
 
-Either launch gmb in interactive mode by simple invocing the script, then type your entry or prepare a textfile anywhere in your ~ and hand the absolute path to gmb as an argument.
+Either launch gmb in interactive mode by simple invoking the script, then type your entry or prepare a textfile anywhere in your ~ and hand the absolute path to gmb as an argument.
 
-Note that, as of now, gmb will only read one single line. Line breaks may be forced by eithr using the br tag or by closing the automatically added p tag and opening a new one.
+Note that, as of now, gmb will only read one single line. Line breaks may be forced by either using the br tag or by closing the automatically added p tag and opening a new one.
 
 ## Updating/editing entries
 gpe.sh (gauntlet's post editor) helps to update the individual files that store the content of each blog post.
@@ -20,5 +27,5 @@ The string behind the second to last forward slash in an entries permanent path 
 
 As an example, suppose an entry was written on 2018-01-02 at 22:42:11 UTC. gpe.sh would be launched like so:
 
-$ gpe.sh 201801/02224211.html
+``$ gpe.sh 201801/02224211.html``
 
