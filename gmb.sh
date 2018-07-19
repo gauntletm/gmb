@@ -1,6 +1,4 @@
 #!/bin/bash
-# gmb 0.5
-# 2018-07-18
 
 . ~/.config/gmb/gmbrc
 
@@ -20,7 +18,7 @@ if [ -z "$1" ]
 then
   tempfile=$(mktemp)
   $editor $tempfile
-  if [ -z $(cat $tempfile) ] ; then exit ; fi
+  if [ -z "$(cat $tempfile)" ] ; then exit ; fi
   typed=$(cat $tempfile)
 else
   typed=$(cat $1)
