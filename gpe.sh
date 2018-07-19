@@ -13,7 +13,7 @@ blogindex=$blogdir/index.html
 
 grep -m 1 "<p>" $archdir/$1 > $pedfile
 
-nano $pedfile
+$editor $pedfile
 ped=]$(cat $pedfile | cut -d] -f 2)
 
 # using } as delimiter because / is common in html and } is not
