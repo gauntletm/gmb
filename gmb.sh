@@ -123,3 +123,5 @@ fi
     from=$[ $to-5 ]
     sed -i "$from , $to d" $blogdir/rss.xml
   fi
+
+rm $tempfile
