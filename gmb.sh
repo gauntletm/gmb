@@ -21,7 +21,7 @@ then
   if [ -z "$(cat $tempfile)" ] ; then exit ; fi
   typed=$(cat $tempfile)
 else
-  typed=$(cat $1)
+  typed=$(cat "$1")
 fi
 
 # get all the relevant times and dates
