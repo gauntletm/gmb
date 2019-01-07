@@ -14,7 +14,7 @@ then
   echo -e '<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0">\n<channel>\n<title>'"$blogtitle"'</title>\n<link>'"$blogurl"'</link>\n<description>'"$blogdesc"'</description>\n<language>'"$bloglang"'</language>\n<!-- <item> -->\n</channel>\n</rss>' > $blogdir/rss.xml
 fi
 
-# check for a parameter to read; if non is present, ask for manual input
+# check for a parameter to read; if none is present, ask for manual input
 if [ -z "$1" ]
 then
   tempfile=$(mktemp)
