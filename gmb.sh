@@ -67,18 +67,24 @@ archpath=../
 workdir=$archdir/$monarch
 writeinfile
 
-
-link=$(date --utc +%B\ %Y)
+year=$(echo $postdate | cut -d- -f1)
+link="<a href=\"$(date --utc +%Y%m)\">$(date --utc +%B)</a>"
 if [ ! -f $archdir/index.html ]
 then
-echo -e '<!DOCTYPE html>\n<html lang="'"$bloglang"'">\n<head>\n<title>Archive of '"$blogtitle"'</title>\n<meta charset="UTF-8">\n<meta name="author" content="'"$author"'">\n<link rel="alternate" type="application/rss+xml" title="'"$blogdesc"'" href="'"$blogurl"'rss.xml">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n</head>\n<body>\n<h1>'"$blogtitle"'</h1>\n<p><a href="..">blog</a></p>\n<p><a href='"$monarch"'>'"$link"'</a></p>\n</body>\n</html>' > $archdir/index.html
+echo -e '<!DOCTYPE html>\n<html lang="'"$bloglang"'">\n<head>\n<title>Archive of '"$blogtitle"'</title>\n<meta charset="UTF-8">\n<meta name="author" content="'"$author"'">\n<link rel="alternate" type="application/rss+xml" title="'"$blogdesc"'" href="'"$blogurl"'rss.xml">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n</head>\n<body>\n<h1>Archive of '"$blogtitle"'</h1>\n<h2>'"$year"'</h2>\n<p><a href="">'"$link"'</a></p>\n</body>\n</html>' > $archdir/index.html
 fi
-archline=$(grep -n -m 1 $(date --utc +%Y%m) $archdir/index.html | cut -d: -f1)
-if [ -z "$archline" ]
+if [ -z $(grep "<h2>$year</h2>" $archdir/index.html) ]
 then
-  archline=$(grep -n -m 1 '<p><a' $archdir/index.html | cut -d: -f1)
+  annualheadline=$(grep -n -m 1 "<h2>" $archdir/index.html | cut -d: -f1)
+#  sed -i -e "$annualheadline i<h2>"$year"</h2>\n<p></p>" $archdir/index.html
+  sed -i -e $annualheadline"s{<h2>{<h2>$year</h2>\n<p>$link</p>\n<h2>{" $archdir/index.html
+fi
+month=$(grep -n -m 1 "<a href=\"$(date --utc +%Y%m)" $archdir/index.html | cut -d: -f1)
+if [ -z "$month" ]
+then
+  month=$(grep -n -m 1 '<p><a' $archdir/index.html | cut -d: -f1)
  # link=`date --utc +%B\ %Y`
-  sed -i "$archline i\<p><a href=\"$monarch\">$link</a></p>" $archdir/index.html
+  sed -i -e $month"s{<p>{<p>$link - {" $archdir/index.html
 fi
 
 
