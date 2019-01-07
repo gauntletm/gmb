@@ -4,6 +4,7 @@
 
 if [ ! -f $blogdir/index.html ]
 then
+  mkdir -p $blogdir
   postdate=$(date --utc +%Y-%m-%d)
   echo -e '<!DOCTYPE html>\n<html lang="'"$bloglang"'">\n<head>\n<title>'"$blogtitle"'</title>\n<meta charset="UTF-8">\n<meta name="author" content="'"$author"'">\n<link rel="alternate" type="application/rss+xml" title="'"$blogdesc"'" href="'"$blogurl"'rss.xml">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n</head>\n<body>\n<h1>'"$blogtitle"'</h1>\n<h3>'"$postdate"'</h3>\n<ul>\n</ul>\n</body>\n</html>' > $blogdir/index.html
 fi
