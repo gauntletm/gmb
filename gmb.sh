@@ -19,7 +19,7 @@ if [ -z "$1" ]
 then
   tempfile=$(mktemp)
   $editor $tempfile
-  if [ -z "$(cat $tempfile)" ] ; then exit ; fi
+  if [ -z "$(cat $tempfile)" ] ; then rm $tempfile & exit ; fi
   typed=$(cat $tempfile)
 else
   typed=$(cat "$1")
