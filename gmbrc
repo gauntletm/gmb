@@ -12,6 +12,7 @@ bloglang=
 
 # blog directory on your server, e.g. ~/public_html/blog
 blogdir=
+archdir=$blogdir/archive
 
 # number of entries to keep in rss feed
 # recommending between 15 an 60, depening on how many posts you write per day
