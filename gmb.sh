@@ -68,7 +68,7 @@ workdir=$archdir/$monarch
 writeinfile
 
 year=$(echo $postdate | cut -d- -f1)
-link="<a href=\"$(date --utc +%Y%m)\">$(date --utc +%B)</a>"
+link="<a href=\"$(date --utc +%Y%m)/\">$(date --utc +%B)</a>"
 if [ ! -f $archdir/index.html ]
 then
 echo -e '<!DOCTYPE html>\n<html lang="'"$bloglang"'">\n<head>\n<title>Archive of '"$blogtitle"'</title>\n<meta charset="UTF-8">\n<meta name="author" content="'"$author"'">\n<link rel="alternate" type="application/rss+xml" title="'"$blogdesc"'" href="'"$blogurl"'rss.xml">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n</head>\n<body>\n<h1>Archive of '"$blogtitle"'</h1>\n<h2>'"$year"'</h2>\n<p><a href="">'"$link"'</a></p>\n</body>\n</html>' > $archdir/index.html
