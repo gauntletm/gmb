@@ -1,7 +1,7 @@
 # gmb
 gmb or gauntlet's microblog is a minimal interface to generate a static microblog and an appendant RSS feed.
 It consists of one bash script using sed, grep, cut, date, echo.
-gmb will take either direkt input when invoked with no parameter or read a text file and process it when pointed to it at launch. Within the entries, all HTML elements that are legal in the body may be used.
+gmb will take either direct input when invoked with no parameter or read a text file and process it when pointed to it at launch. Within the entries, all HTML elements that are legal in the body may be used.
 
 See http://ctrl-c.club/~gauntlet/gmb/ for an example.
 
